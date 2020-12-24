@@ -1,7 +1,0 @@
-- hosts: lab
-  become: yes
-  roles:
-    - common
-  tags:
-    lab
-
