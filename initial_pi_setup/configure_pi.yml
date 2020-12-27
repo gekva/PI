@@ -23,3 +23,15 @@
         name: "*"
         state: latest
 
+    - name: Install snmp packages
+      apt:
+        name: snmpd
+        state: latest
+
+    - name: Enable snmp service
+      service: name=snmpd enabled=yes
+      notify: Restart snmpd
+
+    - name: Set timezone to Europe/Oslo
+      community.general.timezone:
+        name: Europe/Oslo
