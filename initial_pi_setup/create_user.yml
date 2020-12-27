@@ -1,0 +1,12 @@
+- name: Create User
+  hosts: test
+  remote_user: pi
+  become: true
+ 
+  tasks:
+    - name: test basic user account creation
+      user: 
+        name: geirkv 
+        password: $6$A8arGSOJWtF53jH4$.Pswn4ue2nBio9fRfmqOFz29qJulE/ZDm1CDmL8c0rU7pWki6Rn/Ae5p4V.tF6KudQAGxK567ppLfDg.wzGQc/
+        group: sudo
+      

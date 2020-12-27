@@ -1,6 +1,6 @@
 ---
 - name: Install progs
-  hosts: piservers
+  hosts: test
   remote_user: pi
   become: true
   tasks:
