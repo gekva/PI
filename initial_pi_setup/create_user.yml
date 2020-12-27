@@ -1,18 +1,24 @@
-- name: Create User
+- name: Create Default Users
   hosts: test
   remote_user: pi
   become: true
+
+  vars: 
+    user_name: geirkv
+    txt_line: ' ALL=(ALL) NOPASSWD: ALL'
+    file_path: /etc/sudoers.d/010_geirkv-nopasswd
  
   tasks:
-    - name: test basic user account creation
+    - name: Creat user account and set password
       user: 
-        name: geirkv 
+        name: "{{user_name}}"
         password: $6$A8arGSOJWtF53jH4$.Pswn4ue2nBio9fRfmqOFz29qJulE/ZDm1CDmL8c0rU7pWki6Rn/Ae5p4V.tF6KudQAGxK567ppLfDg.wzGQc/
         group: sudo
       
 
-    - name: Ensure SELinux is set to enforcing mode
+    - name: Ensure that the user can elevate to sudo without password
       lineinfile:
-        path: /etc/sudoers.d/010_geirkv-nopasswd
-        line: 'geirkv ALL=(ALL) NOPASSWD: ALL'
+        path: "{{file_path}}"
+        state: present
+        line: '{{user_name + txt_line}}'
         create: yes

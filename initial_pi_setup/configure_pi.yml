@@ -3,6 +3,10 @@
   hosts: test
   remote_user: pi
   become: true
+  vars: 
+    txt_line: ' ALL=(ALL) NOPASSWD: ALL'
+    file_path: /etc/snmp/snmpd.conf
+
   tasks:
     - name: Install speedtest  (state=present is optional)
       apt:
@@ -27,6 +31,11 @@
       apt:
         name: snmpd
         state: latest
+    
+    - name: Install snmp packages
+      apt:
+        name: snmp
+        state: latest
 
     - name: Enable snmp service
       service: name=snmpd enabled=yes
@@ -35,3 +44,35 @@
     - name: Set timezone to Europe/Oslo
       community.general.timezone:
         name: Europe/Oslo
+
+
+    - name: Remove localhost from SNMP Config
+      lineinfile:
+        path: "{{file_path}}"
+        regexp: '^agentAddress  udp:127.0.0.1:161'
+        line: '#agentAddress  udp:127.0.0.1:161'
+      
+    - name: Configure SNMP to listen on all interfaces
+      lineinfile:
+        path: "{{file_path}}"
+        regexp: '#agentAddress udp:161,udp6:[::1]:161'
+        line: 'agentAddress udp:161,udp6:[::1]:161'
+
+    - name: Configure SNMP public community
+      lineinfile:
+        path: "{{file_path}}"
+        insertafter: 'rocommunity public localhost'
+        line: 'rocommunity public 192.168.0.0/16'
+ 
+ 
+    - name: Configure SNMP syslocation
+      lineinfile:
+        path: "{{file_path}}"
+        regex: '^sysLocation    Sitting on the Dock of the Bay'
+        line: 'sysLocation Kirsebærhagen 23'
+    
+    - name: Configure SNMP syscontact
+      lineinfile:
+        path: "{{file_path}}"
+        regex: '^sysContact'
+        line: 'geir@kvalheim.net'
