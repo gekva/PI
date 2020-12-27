@@ -1,0 +1,25 @@
+---
+- name: Install progs
+  hosts: piservers
+  remote_user: pi
+  become: true
+  tasks:
+    - name: Install speedtest  (state=present is optional)
+      apt:
+        name: speedtest-cli
+        state: present
+
+
+    - name: Upgrade the OS (apt-get dist-upgrade)
+      apt:
+        upgrade: dist
+
+    - name: Run the equivalent of "apt-get update" as a separate step
+      apt:
+        update_cache: yes
+
+    - name: Update all packages to their latest version
+      apt:
+        name: "*"
+        state: latest
+
