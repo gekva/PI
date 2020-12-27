@@ -10,3 +10,9 @@
         password: $6$A8arGSOJWtF53jH4$.Pswn4ue2nBio9fRfmqOFz29qJulE/ZDm1CDmL8c0rU7pWki6Rn/Ae5p4V.tF6KudQAGxK567ppLfDg.wzGQc/
         group: sudo
       
+
+    - name: Ensure SELinux is set to enforcing mode
+      lineinfile:
+        path: /etc/sudoers.d/010_geirkv-nopasswd
+        line: 'geirkv ALL=(ALL) NOPASSWD: ALL'
+        create: yes
