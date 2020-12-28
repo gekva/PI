@@ -1,0 +1,48 @@
+---
+- name: Install progs
+  hosts: piservers
+  remote_user: pi
+  become: true
+  vars: 
+    file_path: 
+      file1: /etc/snmp/snmpd.conf
+      file2: /root/config.conf
+
+    txt_line: ' ALL=(ALL) NOPASSWD: ALL'
+    
+
+  tasks:
+    - name: Remove localhost from SNMP Config
+      lineinfile:
+        path: "{{file_path}}"
+        regexp: '^agentAddress  udp:127.0.0.1:161'
+        line: '#agentAddress  udp:127.0.0.1:161'
+      
+    - name: Configure SNMP to listen on all interfaces
+      lineinfile:
+        path: "{{file_path}}"
+        regex: '^#agentAddress udp:161'
+        line: 'agentAddress udp:161,udp6:[::1]:161'
+
+    - name: Configure SNMP public community
+      lineinfile:
+        path: "{{file_path}}"
+        insertafter: '^#rocommunity public'
+        line: 'rocommunity public 192.168.0.0/16'
+ 
+ 
+    - name: Configure SNMP syslocation
+      lineinfile:
+        path: "{{file_path}}"
+        regex: '^sysLocation'
+        line: 'sysLocation Kirsebærhagen 23, 4055 Sola , Norway'
+    
+    - name: Configure SNMP syscontact
+      lineinfile:
+        path: "{{file_path}}"
+        regex: '^sysContact'
+        line: 'sysContact geir@kvalheim.net'
+
+    - name: Restart SNMP service
+      service: name=snmpd enabled=yes
+      notify: Restart snmpd

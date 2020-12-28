@@ -9,14 +9,20 @@
     - name: Upgrade the OS (apt-get dist-upgrade)
       apt:
         upgrade: dist
-
+      register: rep_os
+    
     - name: Run the equivalent of "apt-get update" as a separate step
       apt:
         update_cache: yes
+      register: rep_app
+    
 
     - name: Update all packages to their latest version
       apt:
         name: "*"
         state: latest
+      register: rep_latest
 
-   
+
+    - debug:
+       var: rep_os ,rep_app, rep_latest
