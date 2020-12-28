@@ -1,0 +1,22 @@
+---
+- name: Update progs
+  hosts: piservers
+  remote_user: pi
+  become: true
+  vars: 
+   
+  tasks:
+    - name: Upgrade the OS (apt-get dist-upgrade)
+      apt:
+        upgrade: dist
+
+    - name: Run the equivalent of "apt-get update" as a separate step
+      apt:
+        update_cache: yes
+
+    - name: Update all packages to their latest version
+      apt:
+        name: "*"
+        state: latest
+
+   
