@@ -1,17 +1,33 @@
 ---
 - name: Install progs
-  hosts: piservers
+  hosts: test
   remote_user: pi
   become: true
   vars: 
-    file_path: 
-      file1: /etc/snmp/snmpd.conf
-      file2: /root/config.conf
-
-    txt_line: ' ALL=(ALL) NOPASSWD: ALL'
-    
+    file_path: /etc/snmp/snmpd.conf
+           
 
   tasks:
+
+    - name: Run the equivalent of "apt-get update" as a separate step
+      apt:
+        update_cache: yes
+
+
+    - name: Install SNMPD packages
+      apt:
+        name: snmpd
+        state: latest
+    
+    - name: Install SNMP packages
+      apt:
+        name: snmp
+        state: latest
+
+    - name: Enable SNMP service
+      service: name=snmpd enabled=yes
+      notify: Restart snmpd
+
     - name: Remove localhost from SNMP Config
       lineinfile:
         path: "{{file_path}}"
@@ -29,8 +45,7 @@
         path: "{{file_path}}"
         insertafter: '^#rocommunity public'
         line: 'rocommunity public 192.168.0.0/16'
- 
- 
+  
     - name: Configure SNMP syslocation
       lineinfile:
         path: "{{file_path}}"
@@ -41,7 +56,7 @@
       lineinfile:
         path: "{{file_path}}"
         regex: '^sysContact'
-        line: 'sysContact geir@kvalheim.net'
+        line: 'sysContact Geir Kvalheim <geir@kvalheim.net>'
 
     - name: Restart SNMP service
       service: name=snmpd enabled=yes

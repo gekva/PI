@@ -1,0 +1,15 @@
+---
+- name: Install progs
+  hosts: test
+  remote_user: pi
+  become: true
+  vars: 
+   
+  tasks:
+
+    - name: Shutdown servers {{item}}
+      community.general.shutdown:
+        delay: 60
+
+
+    

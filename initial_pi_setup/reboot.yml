@@ -1,0 +1,14 @@
+---
+- name: Install progs
+  hosts: test
+  remote_user: pi
+  become: true
+  vars: 
+   
+  tasks:
+
+    - name: Reboot servers {{item}}
+      reboot:
+        msg: ' Rebooted by Ansible'
+
+    
