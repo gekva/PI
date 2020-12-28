@@ -1,5 +1,5 @@
 ---
-- name: Update progs
+- name: Update programs
   hosts: piservers
   remote_user: pi
   become: true
