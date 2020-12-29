@@ -10,6 +10,7 @@
     - name: Shutdown servers {{item}}
       community.general.shutdown:
         delay: 60
+        msg: 'Shutdown by Ansible'
 
 
     
