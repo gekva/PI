@@ -1,7 +1,7 @@
 apt install software-properties-common
 add-apt-repository universe
-apt update
-apt install curl apache2 composer fping git graphviz imagemagick libapache2-mod-php7.3 mariadb-client mariadb-server mtr-tiny nmap php7.3-cli php7.3-curl apt  php7.3-json php7.3-mbstring php7.3-mysql php7.3-snmp php7.3-xml php7.3-zip python-memcache python-mysqldb rrdtool snmp snmpd whois python3-pip acl
+add-apt-repository universe
+apt install curl apache2 composer fping git graphviz imagemagick libapache2-mod-php7.3 mariadb-client mariadb-server mtr-tiny nmap php7.3-cli php7.3-curl php7.3-gd php7.3-json php7.3-mbstring php7.3-mysql php7.3-snmp php7.3-xml php7.3-zip python-memcache python-mysqldb rrdtool snmp snmpd whois python3-pip acl
 
 useradd librenms -d /opt/librenms -M -r
 usermod -a -G librenms www-data
@@ -37,14 +37,20 @@ systemctl restart mysql
 nano /etc/php/7.3/apache2/php.ini
 	[Date]
 	date.timezone = Europe/Oslo 
+
+
+    a2enmod php7.3
+	a2dismod mpm_event
+	a2enmod mpm_prefork
+
 nano /etc/php/7.3/cli/php.ini
 	[Date]
 	date.timezone = Europe/Oslo
 
-
-	a2enmod php7.3
+    a2enmod php7.3
 	a2dismod mpm_event
 	a2enmod mpm_prefork
+	
 
 
 nano /etc/apache2/sites-available/librenms.conf
@@ -63,10 +69,14 @@ nano /etc/apache2/sites-available/librenms.conf
 
 a2ensite librenms.conf
 a2enmod rewrite
+
+chown librenms:librenms /opt/librenms/config.php
+
 systemctl restart apache2
 
 cp /opt/librenms/snmpd.conf.example /etc/snmp/snmpd.conf
 nano /etc/snmp/snmpd.conf
+   public
 
 curl -o /usr/bin/distro https://raw.githubusercontent.com/librenms/librenms-agent/master/snmp/distro
 chmod +x /usr/bin/distro
@@ -77,7 +87,6 @@ cp /opt/librenms/librenms.nonroot.cron /etc/cron.d/librenms
 cp /opt/librenms/misc/librenms.logrotate /etc/logrotate.d/librenms
 
 
-chown librenms:librenms /opt/librenms/config.php
 
 cd /opt/librenms
 ./validate.php
