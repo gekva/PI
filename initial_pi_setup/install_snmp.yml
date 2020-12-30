@@ -58,6 +58,17 @@
         regex: '^sysContact'
         line: 'sysContact Geir Kvalheim <geir@kvalheim.net>'
 
+    - name: Add extended snmp  1
+      lineinfile:
+        path: "{{file_path}}"
+        line: extend hardware '/bin/cat /sys/firmware/devicetree/base/model'
+    
+    - name: Add extended snmp 2
+      lineinfile:
+        path: "{{file_path}}"
+        line: extend serial '/bin/cat /sys/firmware/devicetree/base/serial-number'
+
+
     - name: Restart SNMP service
       service: name=snmpd enabled=yes
       notify: Restart snmpd
