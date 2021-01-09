@@ -1,10 +1,10 @@
 - name: Create Default Users
-  hosts: gcp
+  hosts: all
   remote_user: pi
   become: true
 
   vars: 
-    user_name: geirkv
+    user_name: ansible
     txt_line: ' ALL=(ALL) NOPASSWD: ALL'
     file_path: /etc/sudoers.d/010_"{{user_name}}"-nopasswd
  
@@ -12,7 +12,7 @@
     - name: Creat user account and set password
       user: 
         name: "{{user_name}}"
-        password: $6$A8arGSOJWtF53jH4$.Pswn4ue2nBio9fRfmqOFz29qJulE/ZDm1CDmL8c0rU7pWki6Rn/Ae5p4V.tF6KudQAGxK567ppLfDg.wzGQc/
+        password: $6$7hX1drgr17q/glob$fjZm87CNcUi3ClbayDQt6OWjZX6KGiM74GfZHTdNSncMmWcZ0Jzp24ZbXNY9egw4FqOzfrLLVmR1TNxGiQ2mt/
         group: sudo
       
 
