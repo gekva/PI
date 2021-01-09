@@ -70,7 +70,7 @@ nano /etc/apache2/sites-available/librenms.conf
 a2ensite librenms.conf
 a2enmod rewrite
 
-chown librenms:librenms /opt/librenms/config.php
+#chown librenms:librenms /opt/librenms/config.php
 
 systemctl restart apache2
 
