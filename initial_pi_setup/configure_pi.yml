@@ -1,6 +1,6 @@
 ---
 - name: Install progs
-  hosts: gpc
+  hosts: rack_2
   remote_user: pi
   become: true
   vars: 
@@ -22,6 +22,10 @@
         name: speedtest-cli
         state: present
 
+    - name: Install Cockpit  (state=present is optional)
+      apt:
+        name: cockpit
+        state: present
 
     - name: Upgrade the OS (apt-get dist-upgrade)
       apt:
