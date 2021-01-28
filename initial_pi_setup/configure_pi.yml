@@ -1,6 +1,6 @@
 ---
 - name: Install progs
-  hosts: rack_2
+  hosts: rack_1
   remote_user: pi
   become: true
   vars: 
