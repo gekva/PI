@@ -1,6 +1,6 @@
 ---
 - name: Install progs
-  hosts: rack_2
+  hosts: test
   remote_user: pi
   become: true
   vars: 
@@ -20,6 +20,11 @@
     - name: Install speedtest  (state=present is optional)
       apt:
         name: speedtest-cli
+        state: present
+
+    - name: Install tcpdump  (state=present is optional)
+      apt:
+        name: tcpdump
         state: present
 
     - name: Install Cockpit  (state=present is optional)
