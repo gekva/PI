@@ -1,6 +1,6 @@
 ---
 - name: Install progs
-  hosts: test
+  hosts: piservers
   remote_user: pi
   become: true
   vars: 
@@ -30,6 +30,11 @@
     - name: Install Cockpit  (state=present is optional)
       apt:
         name: cockpit
+        state: present
+
+    - name: Install Terminator  (state=present is optional)
+      apt:
+        name: terminator
         state: present
 
     - name: Upgrade the OS (apt-get dist-upgrade)
