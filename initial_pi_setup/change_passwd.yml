@@ -12,7 +12,7 @@
     - name: Creat user account and set password
       user: 
         name: "{{user_name}}"
-        password: $6$QhLINCHpYaLl.C4R$YUAufeAOHqiw3ioSbgqUJZGc8WS1qe2oiwVbd2ATGdkx6j72wA9li742fjlD6xj96Rhdi3JjwUKOA0ohxa3TS0
+        password: $6$QhLssh INCHpYaLl.C4R$YUAufeAOHqiw3ioSbgqUJZGc8WS1qe2oiwVbd2ATGdkx6j72wA9li742fjlD6xj96Rhdi3JjwUKOA0ohxa3TS0
         group: sudo
       
 

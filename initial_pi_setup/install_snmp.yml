@@ -1,6 +1,6 @@
 ---
 - name: Install progs
-  hosts: gcp
+  hosts: all
   remote_user: pi
   become: true
   vars: 

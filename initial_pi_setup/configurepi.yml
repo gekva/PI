@@ -1,6 +1,6 @@
 ---
 - name: Install progs
-  hosts: piservers
+  hosts: all
   remote_user: pi
   become: true
   vars: 
@@ -32,6 +32,11 @@
         name: cockpit
         state: present
 
+    - name: Install Aptitude  (state=present is optional)
+      apt:
+        name: aptitude
+        state: present
+
     - name: Install Terminator  (state=present is optional)
       apt:
         name: terminator
@@ -51,7 +56,7 @@
     
     - name: Set timezone to Europe/Oslo
       community.general.timezone:
-        name: Europe/Oslo
+       name: Europe/Oslo
 
     - name: Enable HDMI in safe mode to (hdmi_safe={{hdmi_safe}})
       lineinfile:

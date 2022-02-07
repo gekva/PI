@@ -1,6 +1,6 @@
 ---
 - name: Update programs
-  hosts: all
+  hosts: piservers
   remote_user: pi
   become: true
   vars: 
@@ -14,7 +14,7 @@
     - name: Run the equivalent of "apt-get update" as a separate step
       apt:
         update_cache: yes
-      register: rep_app
+      register:
     
 
     - name: Update all packages to their latest version
