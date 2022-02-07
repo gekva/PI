@@ -1,6 +1,6 @@
 ---
 - name: Update programs
-  hosts: piservers
+  hosts: sec
   remote_user: pi
   become: true
   vars: 
