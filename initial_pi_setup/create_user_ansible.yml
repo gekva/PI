@@ -1,6 +1,6 @@
 - name: Create Default Users
-  hosts: sec
-  remote_user: pi
+  hosts: all
+  remote_user: geirkv
   become: true
 
   vars: 
