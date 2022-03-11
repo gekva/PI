@@ -34,7 +34,7 @@
   
     - name: Install HTOP  (state=present is optional)
       apt:
-        name: HTOP
+        name: htop
         state: present
 
 
@@ -47,6 +47,12 @@
       apt:
         name: terminator
         state: present
+
+    - name: Install Traceroute  (state=present is optional)
+      apt:
+        name: traceroute
+        state: present
+
 
     - name: Upgrade the OS (apt-get dist-upgrade)
       apt:
@@ -64,32 +70,32 @@
       community.general.timezone:
        name: Europe/Oslo
 
-    - name: Enable HDMI in safe mode to (hdmi_safe={{hdmi_safe}})
-      lineinfile:
-        path: "{{config_file_path}}"
-        regexp: '^#hdmi_safe='
-        line: 'hdmi_safe={{hdmi_safe}}'
+    # - name: Enable HDMI in safe mode to (hdmi_safe={{hdmi_safe}})
+    #   lineinfile:
+    #     path: "{{config_file_path}}"
+    #     regexp: '^#hdmi_safe='
+    #     line: 'hdmi_safe={{hdmi_safe}}'
 
-    - name: Force HDMI (hdmi_force_hotplug={{hdmi_hotplug}})
-      lineinfile:
-        path: "{{config_file_path}}"
-        regexp: '^#hdmi_force_hotplug='
-        line: 'hdmi_force_hotplug={{hdmi_hotplug}}'
+    # - name: Force HDMI (hdmi_force_hotplug={{hdmi_hotplug}})
+    #   lineinfile:
+    #     path: "{{config_file_path}}"
+    #     regexp: '^#hdmi_force_hotplug='
+    #     line: 'hdmi_force_hotplug={{hdmi_hotplug}}'
 
-    - name: Set GPU memory (gpu_mem={{gpu_mem}})
-      lineinfile:
-        path: "{{config_file_path}}"
-        regexp: '^gpu_mem='
-        line: 'gpu_mem={{gpu_mem}}'
+    # - name: Set GPU memory (gpu_mem={{gpu_mem}})
+    #   lineinfile:
+    #     path: "{{config_file_path}}"
+    #     regexp: '^gpu_mem='
+    #     line: 'gpu_mem={{gpu_mem}}'
 
-    - name: Set HDMI group (hdmi_group={{hdmi_group}})
-      lineinfile:
-        path: "{{config_file_path}}"
-        regexp: '^hdmi_group='
-        line: 'hdmi_group{{hdmi_group}}'
+    # - name: Set HDMI group (hdmi_group={{hdmi_group}})
+    #   lineinfile:
+    #     path: "{{config_file_path}}"
+    #     regexp: '^hdmi_group='
+    #     line: 'hdmi_group{{hdmi_group}}'
 
-    - name: Set HDMI mode (hdmi_mode={{hdmi_mode}})
-      lineinfile:
-        path: "{{config_file_path}}"
-        regexp: '^hdmi_mode='
-        line: 'hdmi_mode={{hdmi_mode}}'
+    # - name: Set HDMI mode (hdmi_mode={{hdmi_mode}})
+    #   lineinfile:
+    #     path: "{{config_file_path}}"
+    #     regexp: '^hdmi_mode='
+    #     line: 'hdmi_mode={{hdmi_mode}
