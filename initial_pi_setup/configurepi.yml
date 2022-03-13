@@ -53,6 +53,10 @@
         name: traceroute
         state: present
 
+    - name: Install wget  (state=present is optional)
+      apt:
+        name: wget
+        state: present
 
     - name: Upgrade the OS (apt-get dist-upgrade)
       apt:
